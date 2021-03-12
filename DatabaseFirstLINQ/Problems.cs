@@ -62,7 +62,11 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that gets each product where the products price is greater than $150.
             // Then print the name and price of each product from the above query to the console.
-
+            var expensiveProducts = _context.Products.Where(product => product.Price > 150).ToList();
+            foreach (Product product in expensiveProducts)
+            {
+                Console.WriteLine(product.Name, product.Price);
+            }
         }
 
         private void ProblemFour()
@@ -76,7 +80,11 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that gets all of the users who registered BEFORE 2016
             // Then print each user's email and registration date to the console.
-
+            var userBefore16 = _context.Users.Where(user => user.RegistrationDate.Value.Year < 2016).ToList();
+            foreach (User user in userBefore16)
+            {
+                Console.WriteLine(user.Email, user.RegistrationDate);
+             }
         }
 
         private void ProblemSix()
@@ -103,8 +111,13 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of the user who has the email "afton@gmail.com".
             // Then print the product's name, price, and quantity to the console.
-            var userHolder = _context.Users.Include(user => user.ShoppingCarts);
-            double empty;
+            var productHolder = _context.ShoppingCarts.Include(cart => cart.Product).Where(user => user.User.Email == "afton@gmail.com").ToList();
+            foreach(ShoppingCart cart in productHolder)
+            {
+                string quant = cart.Quantity.ToString();
+                string price = cart.Product.Price.ToString();
+                Console.WriteLine(quant, cart.Product.Name, price);
+            }
         }
 
         private void ProblemNine()
