@@ -42,7 +42,8 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that returns the number of users in the Users table.
             // HINT: .ToList().Count
-
+            int users = _context.Users.ToArray().Count();
+            Console.WriteLine(users);
 
         }
 
@@ -73,7 +74,11 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that gets each product that contains an "s" in the products name.
             // Then print the name of each product from the above query to the console.
-
+            var containsS = _context.Products.Where(x => x.Name.Contains("s")).ToList();
+            foreach (var x in containsS)
+            {
+                Console.WriteLine(x.Name);
+            }
         }
 
         private void ProblemFive()
@@ -91,7 +96,11 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that gets all of the users who registered AFTER 2016 and BEFORE 2018
             // Then print each user's email and registration date to the console.
-
+            var between16And18 = _context.Users.Where(user => user.RegistrationDate.Value.Year > 2016 && user.RegistrationDate.Value.Year < 2018).ToList();
+            foreach (var user in between16And18)
+            {
+                Console.WriteLine(user.Email, user.RegistrationDate);
+            }
         }
 
         // <><><><><><><><> R Actions (Read) with Foreign Keys <><><><><><><><><>
@@ -125,6 +134,8 @@ namespace DatabaseFirstLINQ
             // Write a LINQ query that retreives all of the products in the shopping cart of the user who has the email "oda@gmail.com" and returns the sum of all of the products prices.
             // HINT: End of query will be: .Select(sc => sc.Product.Price).Sum();
             // Then print the total of the shopping cart to the console.
+            var products = _context.ShoppingCarts.Include(cart => cart.Product).Where(cart => cart.User.Email.Equals("oda@gmail.com")).ToList();
+            var sum = products.Select(sc => sc.Product.Price).Sum();
 
         }
 
