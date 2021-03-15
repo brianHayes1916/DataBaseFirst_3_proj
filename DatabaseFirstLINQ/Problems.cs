@@ -259,7 +259,9 @@ namespace DatabaseFirstLINQ
         private void ProblemEighteen()
         {
             // Delete the role relationship from the user who has the email "oda@gmail.com" using LINQ.
-
+            var user = _context.UserRoles.Where(ur => ur.User.Email == "oda@gmail.com").SingleOrDefault();
+            _context.UserRoles.Remove(user);
+            _context.SaveChanges();
         }
 
         private void ProblemNineteen()
