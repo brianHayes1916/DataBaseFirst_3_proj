@@ -168,6 +168,14 @@ namespace DatabaseFirstLINQ
 
         private void ProblemTwelve()
         {
+            Product newProduct = new Product()
+            {
+                Name = "New Product",
+                Description = "This is a new product",
+                Price = 14.99m
+            };
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
             // Create a new Product object and add that product to the Products table using LINQ.
 
         }
