@@ -196,9 +196,25 @@ namespace DatabaseFirstLINQ
 
         private void ProblemFourteen()
         {
-            
-            // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
 
+            // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
+            var user = _context.Users.Where(use => use.Email == "david@gmail.com").ToList();
+            var product = _context.Products.Where(pro => pro.Name == "New Product").ToList();
+            User userHolder = null;
+            Product productHolder = null;
+            foreach (User use in user)
+            {
+                userHolder = use;
+            }
+            foreach (Product pro in product)
+            {
+                productHolder = pro;
+            }
+            ShoppingCart newCart = new ShoppingCart()
+            {
+                User = userHolder,
+                Product = productHolder
+            };
         }
 
         // <><> U Actions (Update) <><>
