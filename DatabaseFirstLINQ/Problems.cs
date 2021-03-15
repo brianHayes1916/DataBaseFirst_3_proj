@@ -196,6 +196,7 @@ namespace DatabaseFirstLINQ
 
         private void ProblemFourteen()
         {
+            
             // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
 
         }
@@ -213,6 +214,10 @@ namespace DatabaseFirstLINQ
 
         private void ProblemSixteen()
         {
+            var product = _context.Products.Where(x => x.Name.Equals("New Product")).FirstOrDefault();
+            product.Price = 20.99m;
+            _context.Products.Update(product);
+            _context.SaveChanges();
             // Update the price of the product you created to something different using LINQ.
 
         }
